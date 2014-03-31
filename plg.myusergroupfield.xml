@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cbinstall version="1.0.0" type="plugin" group="user">
+	<name>CB My User Group Field</name>
+	<author>Fati CHEN</author>
+	<creationDate>2014-03-30</creationDate>
+	<copyright>(C) 2014 Stardisblue</copyright>
+	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
+	<authorEmail>stardisblue@gmail.com</authorEmail>
+	<authorUrl>www.stardisblue.com</authorUrl>
+	<version>1.0</version>
+	<description>
+		A Community Builder User Group plugin that allows users to choose a group.
+	</description>
+	<files>
+		<filename plugin="plg.myusergroupfield">plg.myusergroupfield.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<fieldtypes>
+		<field type="myusergroup" label="My User Group Field">
+			<database version="1">
+				<table name="#__user_usergroup_map" class="moscomprofiler" maintable="true" strict="false" drop="never" shared="true">
+					<columns>
+						<column name="group_id" nametype="group_id" type="sql:int(10)" null="true" default="12" />
+					</columns>
+				</table>
+			</database>
+			<params description="The User Group field allows the user to choose a group">
+				<fieldset label="User Group Statement" description="Parent id Group chooser">
+				<param name="fieldType" type="text" size="2" default="12" />
+				<param name="fieldValidateForbiddenList_register" type="text" default="http:,https:,mailto:,//.[url],&lt;a,&lt;/a&gt;;,&amp;#" label="Forbidden words at registration" description="You can set a list of bad words (separated by comma ,) which are not allowed in this field for registration. Use comma twice (,,) to add comma as bad character." />			
+				<param name="fieldValidateForbiddenList_profile" type="text" default="" label="Forbidden words in user profile edits" description="You can set a list of bad words (separated by comma ,) which are not allowed in this field when user updates his profile in profile edits. Use comma twice (,,) to add comma as bad character." />
+
+
+
+				</fieldset>
+			</params>
+		</field>
+	</fieldtypes>
+	<fieldsparams>
+	</fieldsparams>
+	<params>
+	</params>
+	<install>
+	</install>
+	<uninstall>
+	</uninstall>
+	<database>
+	</database>
+</cbinstall>
