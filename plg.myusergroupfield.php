@@ -27,8 +27,6 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 	 * @param  string                $reason      'profile' for user profile view, 'edit' for profile edit, 'register' for registration, 'search' for searches
 	 * @param  int                   $list_compare_types   IF reason == 'search' : 0 : simple 'is' search, 1 : advanced search with modes, 2 : simple 'any' search
 	 * @return mixed     
-	 *
-	 *
 	 */
 	function getField( &$field, &$user, $output, $reason, $list_compare_types ) {
 		global $_CB_framework, $ueConfig, $_CB_database;
@@ -55,8 +53,6 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 
 		$value=cbGetUnEscaped(implode("|*|",$value));
 
-
-
 		switch ( $output ) {
 			case 'htmledit':
 				if ( $reason == 'search' ) {
@@ -81,7 +77,7 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 		return $ret;
 	}
 
-		/**
+	/**
 	 * Mutator:
 	 * Prepares field data for saving to database (safe transfer from $postdata to $user)
 	 * Override
