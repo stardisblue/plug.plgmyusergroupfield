@@ -7,7 +7,7 @@
 * @author CHEN Fati
 * @copyright (C) 2014
 * @license Limited http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2
-* @final 1.0
+* @final 1.0.0
 */
 
 /** ensure this file is being included by a parent file */
@@ -23,19 +23,19 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 	 * Acessor :
 	 * Returns a field in specified format
 	 *
-	 * @param  int                   Parent id.
+	 * @param  string                $output  'html', 'xml', 'json', 'php', 'csvheader', 'csv', 'rss', 'fieldslist', 'htmledit'
+	 * @param  string                $reason      'profile' for user profile view, 'edit' for profile edit, 'register' for registration, 'search' for searches
+	 * @param  int                   $list_compare_types   IF reason == 'search' : 0 : simple 'is' search, 1 : advanced search with modes, 2 : simple 'any' search
 	 * @return mixed     
 	 *
 	 *
-	 *
-	 *         
 	 */
 	function getField( &$field, &$user, $output, $reason, $list_compare_types ) {
 		global $_CB_framework, $ueConfig, $_CB_database;
 
 		$ret = null;
 		
-		$fieldtype = $field->params->get('fieldType', '' );
+		$fieldtype = (int) $field->params->get('fieldType', '0' );
 		
 		if ($value === null) {
 			$value = array();
@@ -53,12 +53,19 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 			}
 		}
 
+		$value=cbGetUnEscaped(implode("|*|",$value));
+
 
 
 		switch ( $output ) {
 			case 'htmledit':
-					$ret			=	$this->_fieldEditToHtml( $field, $user, $reason, 'select', 'text', $value, '' );
+				if ( $reason == 'search' ) {
+					$ret=	$this->_fieldSearchModeHtml( $field, $user, $this->_fieldEditToHtml( $field, $user, $reason, 'input', 'select', $value, '' ), 'text', $list_compare_types );
+				} else {
+					$ret=	$this->_fieldEditToHtml( $field, $user, $reason, 'input', 'select', $value, '' );
+				}
 				break;
+
 			case 'html':
 			case 'rss':
 			case 'json':
@@ -74,7 +81,7 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 		return $ret;
 	}
 
-	/**
+		/**
 	 * Mutator:
 	 * Prepares field data for saving to database (safe transfer from $postdata to $user)
 	 * Override
@@ -102,35 +109,6 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 				$user->$col		=	$value;
 			}
 		}
-	}
-
-
-	/**
-	 * Finder:
-	 * Prepares field data for saving to database (safe transfer from $postdata to $user)
-	 * Override
-	 *
-	 * @param  moscomprofilerFields  $field
-	 * @param  moscomprofilerUser    $searchVals  RETURNED populated: touch only variables related to saving this field (also when not validating for showing re-edit)
-	 * @param  array                 $postdata    Typically $_POST (but not necessarily), filtering required.
-	 * @param  int                   $list_compare_types   IF reason == 'search' : 0 : simple 'is' search, 1 : advanced search with modes, 2 : simple 'any' search
-	 * @param  string                $reason      'edit' for save profile edit, 'register' for registration, 'search' for searches
-	 * @return array of cbSqlQueryPart
-	 */
-
-	function _intToSql( &$field, $col, $value, $operator, $searchMode ) {
-		$value							=	(int) $value;
-		// $this->validate( $field, $user, $col, $value, $postdata, $reason );
-		$sql							=	new cbSqlQueryPart();
-		$sql->tag						=	'column';
-		$sql->name						=	$col;
-		$sql->table						=	$field->table;
-		$sql->type						=	'sql:field';
-		$sql->operator					=	$operator;
-		$sql->value						=	$value;
-		$sql->valuetype					=	'const:int';
-		$sql->searchmode				=	$searchMode;
-		return $sql;
 	}
 
 }//end of My User Group field
