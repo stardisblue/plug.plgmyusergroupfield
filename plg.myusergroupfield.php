@@ -32,6 +32,7 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 		global $_CB_framework, $ueConfig, $_CB_database;
 
 		$ret = null;
+		$value = null;
 		
 		$fieldtype = (int) $field->params->get('fieldType', '0' );
 		
