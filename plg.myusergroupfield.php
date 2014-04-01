@@ -45,8 +45,8 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 		if (! is_array( $Values ) ) {
 			$Values = array();
 		}
-		foreach ( $value as $k => $v ) {
-			if ( ! in_array( cbGetUnEscaped( $v ), $Values ) ) {
+		foreach ( $Values as $k => $value ) {
+			if ( ! in_array( cbGetUnEscaped( $value ), $Values ) ) {
 				unset( $value[$k] );
 			}
 		}
