@@ -40,15 +40,16 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 		. "\n ORDER BY title ASC" );
 		$Values = $_CB_database->loadObjectList('title');
 
-		if (! is_array( $Values ) ) {
-			$Values = array();
-		}
-		foreach ( $Values as $k => $v ) {
-			if ( ! in_array( cbGetUnEscaped( $v ), $Values ) ) {
-				unset( $value[$k] );
-			}
-		} 
-		$value=implode("|*|",$Values);
+//		if (! is_array( $Values ) ) {
+//			$Values = array();
+//		}
+//		foreach ( $Values as $k => $v ) {
+//			if ( ! in_array( cbGetUnEscaped( $v ), $Values ) ) {
+//				unset( $value[$k] );
+//			}
+//		} 
+//		$value=implode("|*|",$Values);
+		$value="Etudiant|*|Enseignant|*|AncienEtudiant"
 		
 		switch ( $output ) {
 			case 'htmledit':
