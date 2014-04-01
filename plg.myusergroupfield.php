@@ -32,31 +32,35 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 		global $_CB_framework, $ueConfig, $_CB_database;
 
 		$ret = null;
+		$value=null;
+		$hello=array();
 		
-		$fieldtype = (int) $field->params->get('fieldType', '0' );
+		$fieldnumber = (int) $field->params->get('fieldnumber', '0' );
 		
-		$_CB_database->setQuery( "SELECT title FROM #__usergroup"
-		. "\n WHERE parentid = 12"
+		$_CB_database->setQuery( "SELECT title FROM #__usergroups"
+		. "\n WHERE parent_id = 12"
 		. "\n ORDER BY title ASC" );
-		$Values = $_CB_database->loadObjectList('title');
 
-//		if (! is_array( $Values ) ) {
-//			$Values = array();
-//		}
-//		foreach ( $Values as $k => $v ) {
-//			if ( ! in_array( cbGetUnEscaped( $v ), $Values ) ) {
-//				unset( $value[$k] );
-//			}
-//		} 
-//		$value=implode("|*|",$Values);
-		$value="Etudiant|*|Enseignant|*|AncienEtudiant"
+		$Values = $_CB_database->loadResultArray();
+		print_r($Values);
+/*		if (! is_array( $Values ) ) {
+			$Values = array();
+		}
+		foreach ( $value as $k => $v ) {
+			if ( ! in_array( cbGetUnEscaped( $v ), $Values ) ) {
+				unset( $value[$k] );
+			}
+		}*/
+
+		$value=cbGetUnEscaped(implode(', ',$Values));
+		print_r($value);
 		
 		switch ( $output ) {
 			case 'htmledit':
 				if ( $reason == 'search' ) {
-					$ret=	$this->_fieldSearchModeHtml( $field, $user, $this->_fieldEditToHtml( $field, $user, $reason, 'input', 'select', $value, '' ), 'text', $list_compare_types );
+					$ret=	$this->_fieldSearchModeHtml( $field, $user, $this->_fieldEditToHtml( $field, $user, $reason, 'input', 'select', $value, '',array() ), 'text', $list_compare_types );
 				} else {
-					$ret=	$this->_fieldEditToHtml( $field, $user, $reason, 'input', 'select', $value, '' );
+					$ret=	$this->_fieldEditToHtml( $field, $user, $reason, 'input', 'select', $value, '' ,$hello);
 				}
 				break;
 
