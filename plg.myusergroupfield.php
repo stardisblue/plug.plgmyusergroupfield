@@ -20,7 +20,7 @@ $_PLUGINS->registerUserFieldParams();
 
 class CBfield_myusergroup extends CBfield_select_multi_radio {
 	/**
-	 * Acessor :
+	 * Accessor :
 	 * Returns a field in specified format
 	 *
 	 * @param  string                $output  'html', 'xml', 'json', 'php', 'csvheader', 'csv', 'rss', 'fieldslist', 'htmledit'
@@ -32,28 +32,24 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 		global $_CB_framework, $ueConfig, $_CB_database;
 
 		$ret = null;
-		$value = null;
 		
 		$fieldtype = (int) $field->params->get('fieldType', '0' );
 		
-		if ($value === null) {
-			$value = array();
-		}
 		$_CB_database->setQuery( "SELECT title FROM #__usergroup"
-		. "\n WHERE parentid = " . (int) $fieldtype
-		. "\n ORDER BY ordering" );
-		$Values = $_CB_database->loadResultArray();
+		. "\n WHERE parentid = 12"
+		. "\n ORDER BY title ASC" );
+		$Values = $_CB_database->loadObjectList('title');
+
 		if (! is_array( $Values ) ) {
 			$Values = array();
 		}
-		foreach ( $Values as $k => $value ) {
-			if ( ! in_array( cbGetUnEscaped( $value ), $Values ) ) {
+		foreach ( $Values as $k => $v ) {
+			if ( ! in_array( cbGetUnEscaped( $v ), $Values ) ) {
 				unset( $value[$k] );
 			}
-		}
-
-		$value=cbGetUnEscaped(implode("|*|",$value));
-
+		} 
+		$value=implode("|*|",$Values);
+		
 		switch ( $output ) {
 			case 'htmledit':
 				if ( $reason == 'search' ) {
