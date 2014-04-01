@@ -38,11 +38,10 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 		$fieldnumber = (int) $field->params->get('fieldnumber', '0' );
 		
 		$_CB_database->setQuery( "SELECT title FROM #__usergroups"
-		. "\n WHERE parent_id = 12"
+		. "\n WHERE parent_id =". $fieldnumber
 		. "\n ORDER BY title ASC" );
 
 		$Values = $_CB_database->loadResultArray();
-		print_r($Values);
 /*		if (! is_array( $Values ) ) {
 			$Values = array();
 		}
@@ -51,9 +50,7 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 				unset( $value[$k] );
 			}
 		}*/
-
 		$value=cbGetUnEscaped(implode(', ',$Values));
-		print_r($value);
 		
 		switch ( $output ) {
 			case 'htmledit':
@@ -73,7 +70,7 @@ class CBfield_myusergroup extends CBfield_select_multi_radio {
 			case 'fieldslist':
 			case 'csv':
 			default:
-				$ret				=	parent::getField( $field, $user, $output, $reason, $list_compare_types );
+				$ret=		parent::getField( $field, $user, $output, $reason, $list_compare_types );
 				break;
 		}
 		return $ret;
