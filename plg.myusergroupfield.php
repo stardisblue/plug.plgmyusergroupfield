@@ -33,81 +33,21 @@ class CBfield_myusergroupfield extends CBfield_counter {
 		global $_CB_framework, $ueConfig, $_CB_database;
 
 		$oReturn = null;
-		
-/*		$fieldtype = $field->params->get( 'fieldType', 'single' );*/
-/*		$fieldsubstitute = $field->params->get( 'fieldSubstitute', 'no' );*/
 		$fieldwhere = $field->params->get( 'fieldWhere', '' );
 		$fieldgroupid = $field->params->get( 'fieldGroupe','0');
 		$viewer =& JFactory::getUser();
 		
 	
-		    // Built MySQL Query
-		    $query = "UPDATE #__user_usergroup_map SET group_id = (SELECT id FROM #__usergroups WHERE title=(SELECT " . $field->params->get( 'fieldSelect', '' ) . " AS mysqlfield";
-		    $query .= " FROM " . $field->params->get( 'fieldFrom', '' );
-		    
-		    if($fieldwhere != '') {
-               $query .= " WHERE " . $fieldwhere.")) WHERE user_id =". $user->id." AND group_id=".$fieldgroupid;
-		    }
-/*			$fieldorder = $field->params->get( 'fieldOrder', '' );*/
-/*		    if($fieldorder != '' && $fieldtype == 'multi') {
-               $query .= " ORDER BY " . $fieldorder;
-		    }
-			$fieldlimit = $field->params->get( 'fieldLimit', '' );
-		    if($fieldlimit != '' && $fieldtype == 'multi') {
-               $query .= " LIMIT " . $fieldlimit;
-		    }*/
-		    
-		    $_CB_database->setQuery(str_replace("{USERID}", $user->id, str_replace("{VIEWERID}", $viewer->id, $query)));
-			$_CB_database->query();
-          
-/*		    $fieldprefix = $field->params->get( 'fieldPrefix', '' );
-		    $fielddelimiter = $field->params->get( 'fieldDelimiter', '' );
-            $fieldsuffix = $field->params->get( 'fieldSuffix', '' );*/
-            
-           /* if($fieldtype == 'single') {
-            	$value = $_CB_database->loadResult();
-            } else {
-            	$results = $_CB_database->loadObjectList();
-            	if(count($results) > 0) {
-            		$first = true;            	
-	            	foreach ($results as $result) {
-	            		if ($first == true) {
-	            			$value = $result->mysqlfield;
-	            			$first = false;
-	            		} else {
-	            			$value .= $fielddelimiter . $result->mysqlfield;
-	            		}
-	            	}
-            	} else {
-            		$value = null;
-            	}	
-            }*/
-            
-/*            if ( $value != '' ) {
-                $value = $fieldprefix . $value . $fieldsuffix;
-                $fieldmode = $field->params->get( 'fieldMode', 'display' );
-                $fieldsavename = $field->params->get( 'fieldSaveName', '' );
-                
-                if ( $fieldmode != 'display' ) {
-                //	$_CB_database->setQuery( "UPDATE #__user_usergroup_map SET group_id = (SELECT id FROM #__usergroups WHERE title='" . $value . "') WHERE user_id = " . $user->id );
-                //	$_CB_database->query();
-                	if ( $fieldmode == 'save' ) {
-                		$value = null;
-                	}
-                }
-            } else {
-            	$value = null;
-            }*/
-		
-		
-		/*if ( $value && $fieldsubstitute != "no" ) {
-			if ( $fieldsubstitute == "viewer" ) {
-				$usersub =& CBUser::getInstance( (int)$viewer->id );
-			} else {
-				$usersub =& CBUser::getInstance( (int)$user->id );
-			}
-			$value = $usersub->replaceUserVars( $value );
-		}*/
+		// Built MySQL Query
+		$query = "UPDATE #__user_usergroup_map SET group_id = (SELECT id FROM #__usergroups WHERE title=(SELECT " . $field->params->get( 'fieldSelect', '' ) . " AS mysqlfield";
+		$query .= " FROM " . $field->params->get( 'fieldFrom', '' );
+
+		if($fieldwhere != '') {
+			$query .= " WHERE " . $fieldwhere.")) WHERE user_id =". $user->id." AND group_id=".$fieldgroupid;
+		}
+
+		$_CB_database->setQuery(str_replace("{USERID}", $user->id, str_replace("{VIEWERID}", $viewer->id, $query)));
+		$_CB_database->query();
 
 		switch ( $output ) {
 			case 'html':
