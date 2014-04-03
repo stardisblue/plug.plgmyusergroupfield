@@ -7,7 +7,7 @@
 * @author CHEN Fati
 * @copyright (C) 2014
 * @license Limited http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2
-* @final 1.0.0
+* @final 1.0.0qsdfqsdfqsdfqsdfqdsfqsdf
 */
 
 /** ensure this file is being included by a parent file */
