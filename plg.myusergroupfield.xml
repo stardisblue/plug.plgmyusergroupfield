@@ -17,21 +17,12 @@
 	</files>
 	<fieldtypes>
 		<field type="myusergroupfield" label="My User Group Field">
-			<database version="1">
-				<table name="#__comprofiler" class="moscomprofiler" maintable="true" strict="false" drop="never" shared="true">
-					<columns>
-						<column name="" nametype="namesuffix" type="sql:int(2)" null="true" default="12" />
-					</columns>
-				</table>
-			</database>
-			<params description="The User Group field allows the user to choose a group">
-				<fieldset label="User Group Statement" description="Parent id Group chooser">
-				<param name="fieldType" type="text" size="2" default="12" />
-				<param name="fieldValidateForbiddenList_register" type="text" default="http:,https:,mailto:,//.[url],&lt;a,&lt;/a&gt;;,&amp;#" label="Forbidden words at registration" description="You can set a list of bad words (separated by comma ,) which are not allowed in this field for registration. Use comma twice (,,) to add comma as bad character." />			
-				<param name="fieldValidateForbiddenList_profile" type="text" default="" label="Forbidden words in user profile edits" description="You can set a list of bad words (separated by comma ,) which are not allowed in this field when user updates his profile in profile edits. Use comma twice (,,) to add comma as bad character." />
-
-
-
+			<params description="My User Group field type plugin adds a 'My User Group Field' to the available list of CB fields. It changes the users permission to the one on the selected field.">
+				<fieldset label="My User Group Statement" description="You can use {USERID} and {VIEWERID} in the WHERE clause which get substituted for the user’s ID and viewer’s ID of the currently viewed profile.">
+					<param name="fieldSelect" type="text" size="40" default="cb_groupe" label="SELECT" description="The SELECT the field wich contains the group choises." />
+					<param name="fieldFrom" type="text" size="40" default="#__comprofiler" label="FROM" description="The FROM part of the MySQL query." />
+					<param name="fieldWhere" type="text" size="40" default="user_id = {USERID}" label="WHERE" description="The WHERE part of the MySQL query - {USERID} and {VIEWERID} are substituted." />
+					<param name="fieldGroupe" type="text" size="40" default="0" label="Groupe id" description="Input the parent Group id." />
 				</fieldset>
 			</params>
 		</field>
