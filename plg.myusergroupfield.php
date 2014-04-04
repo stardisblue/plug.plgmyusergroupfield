@@ -59,18 +59,6 @@ class CBfield_myusergroupfield extends CBfield_counter {
 		$fieldgroupid = $field->params->get( 'fieldGroupe','0');
 		$viewer =& JFactory::getUser();
 
-
-		// Built MySQL Query
-		$query = "UPDATE #__user_usergroup_map SET group_id = (SELECT id FROM #__usergroups WHERE title=(SELECT " . $field->params->get( 'fieldSelect', '' ) . " AS mysqlfield";
-		$query .= " FROM " . $field->params->get( 'fieldFrom', '' );
-
-		if($fieldwhere != '') {
-			$query .= " WHERE " . $fieldwhere.")) WHERE user_id =". $user->id." AND group_id=".$fieldgroupid;
-		}
-
-		$_CB_database->setQuery(str_replace("{USERID}", $user->id, str_replace("{VIEWERID}", $viewer->id, $query)));
-		$_CB_database->query();
-
 		switch ( $output ) {
 			case 'html':
 			case 'rss':
