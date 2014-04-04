@@ -35,7 +35,7 @@ class CBfield_myusergroupfield extends CBfield_counter {
 		
 		$oReturn = null;
 		
-		$query = "SELECT params FROM #__comprofiler_fields WHERE type='mysqlfield'";
+		$query = "SELECT params FROM #__comprofiler_fields WHERE type='myusergroupfield'";
 		$_CB_database->setQuery($query);
 		$value = $_CB_database->loadResult();
 		$params=preg_split('/field[^=]*=/i', $value, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
