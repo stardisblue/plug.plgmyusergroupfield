@@ -34,15 +34,14 @@ class CBfield_myusergroupfield extends CBfield_counter {
 		global $_CB_framework, $ueConfig, $_CB_database;
 		
 		$oReturn = null;
-		
 		$query = "SELECT params FROM #__comprofiler_fields WHERE type='myusergroupfield'";
 		$_CB_database->setQuery($query);
 		$value = $_CB_database->loadResult();
-		$params=preg_split('/field[^=]*=/i', $value, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 		
+		$params=preg_split('/field[^=]*=/i', $value, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 		$viewer =& JFactory::getUser();
 		
-		// Built My User Field Query
+		// Built MySQL Query
 		$query = "UPDATE #__user_usergroup_map SET group_id = (SELECT id FROM #__usergroups WHERE title=(SELECT " . $params[0] . " AS mysqlfield";
 		$query .= " FROM " . $params[1];
 		$query .= " WHERE " . $params[2].")) WHERE user_id =". $user->id." AND group_id=".$params[3];
