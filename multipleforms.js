@@ -1,6 +1,8 @@
-
+// Dependances : jQuery
 var $j = jQuery.noConflict();
 
+
+// recupere les variables passes en paramètres dans l'url
 jQuery(document).ready(function setUserGroup() {
   var val = getUrlVars()['groupe'];
   var sel = document.getElementById('cb_groupe');
@@ -23,6 +25,7 @@ jQuery(document).ready(function setUserGroup() {
   }
 )
 
+// Si ancien etudiant: afficher l'année d'obtention de diplome
 jQuery(document).ready(function hideAnnee(){
     if($j("#cb_groupe").val() ==="AncienEtudiant"){
       $j("#cblabcb_anneediplome").parent().show();
@@ -41,6 +44,7 @@ jQuery(document).ready(function hideAnnee(){
   }
 )
 
+// Si étudiant, email non éditable
 jQuery(document).ready(function emailBlock(){
   if ($j("#cb_groupe").val() ==="Etudiant"){
     $prenom = "prenom";
